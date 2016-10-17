@@ -13,3 +13,5 @@ function bkgd_image = isolate_bkgd()
    bkgd_image = uint8(median(X,4));
    
 end
+
+

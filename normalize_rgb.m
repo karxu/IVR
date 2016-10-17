@@ -1,5 +1,4 @@
-function normal = normalize_rgb(image)
-    i = imread(image);
+function normal = normalize_rgb(i)
     normal = double(i);
     iDSum = normal(:,:,1) + normal(:,:,2) + normal(:,:,3);
     
