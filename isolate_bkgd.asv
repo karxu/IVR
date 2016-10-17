@@ -1,15 +1,15 @@
 function bkgd_image = isolate_bkgd()
     filenames = {'02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', ...
-                '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg'};
+                '17', '18', '19', '20', '21'};
             
     numfiles = size(filenames, 2);    
             
     X = zeros(480, 640, 3, numfiles);
         
 	for i = 1:numfiles
-    	X(:,:,:,i) = imread(char(filenames(i)));
+    	X(:,:,:,i) = imread([filenames(i), '.jpg'],'jpg');
 	end
 
-   bkgd_image = uint8(median(X,4));
+   bkgd_image = median(X,4);
    
 end
