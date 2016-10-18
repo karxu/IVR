@@ -1,12 +1,11 @@
+function adapt = adapt(inimage)
+
 N=100;
 Constant=12;
-
-    inimage = imread(['partgradgr.jpg'],'jpg');
     [H,W] = size(inimage);
     outimage = zeros(H,W);
     N2 = floor(N/2);
     for i = 1+N2 : H-N2
-i
       for j = 1+N2 : W-N2
         % extract subimage
         subimage = inimage(i-N2:i+N2,j-N2:j+N2);
@@ -22,6 +21,8 @@ i
   figure(3)
   colormap(gray)
   imshow(outimage)
+  adapt = outimage;
+end
 
                            
 %out2 = bwmorph(outimage,'open');

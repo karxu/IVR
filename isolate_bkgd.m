@@ -7,7 +7,8 @@ function bkgd_image = isolate_bkgd()
     X = zeros(480, 640, 3, numfiles);
         
 	for i = 1:numfiles
-    	X(:,:,:,i) = imread(char(filenames(i)));
+        im = imread(char(filenames(i)));
+    	X(:,:,:,i) = im;
 	end
 
    bkgd_image = uint8(median(X,4));

@@ -3,19 +3,23 @@ function segmented = processing(image)
 background = isolate_bkgd;
 inorm = normalize_rgb(image);
 bgnorm = normalize_rgb(background);
+figure;
 
 diff = abs(inorm - bgnorm);
-%diffmasked = (diff > .04);
-%segmented = (diffmasked(:,:,1) | diffmasked(:,:,2) | diffmasked(:,:,3));
 
-diffbw = 255*rgb2gray(diff);
-segmented = getbinary(diffbw);
+%Manual thresholding
+diffmasked = (diff > .02);
+segmented = (diffmasked(:,:,1) | diffmasked(:,:,2) | diffmasked(:,:,3));
 
-figure;
+%Automatic thresholding using findthresh
+%diffbw = 255*rgb2gray(diff);
+%segmented = getbinary(diffbw);
+
+%Adaptive thresholding
+%inorm = inorm * 255;
+%inorm = uint8(inorm);
+%inorm = rgb2gray(inorm);
+%segmentd = adapt(inorm);
+
 imshowpair(segmented, image, 'montage');
 end
-
-%PENDING CHOICES: 
-%To use manual mask or calculated mask for thresholding diff
-    %Can try findthresh.m and adapt.m as options for thresholding
- 
