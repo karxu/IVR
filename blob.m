@@ -14,3 +14,9 @@ x = 1;
    
    
 end
+
+%Given blob image a and original image I, 
+%Dot-multiply a with I in every color channel
+%calculate sum(sum)) for red, blue, and green color channels of a*I
+%Divide each of those by size(a) --> Should equal MEAN color of the object
+%in each color channel
