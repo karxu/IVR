@@ -1,19 +1,20 @@
+% This function takes in an rgb image and returns a segmented binary image.
+% The techniques used are: 
+% 1. RB normalization
+% 2. Background subtraction
+% 3. Manual thresholding
+
 function segmented = processing(image)
 
 %normalize background and image
 background = isolate_bkgd;
 inorm = normalize_rgb(image);
 bgnorm = normalize_rgb(background);
-% inorm = image;
-% bgnorm = background;
-
 
 diff = abs(inorm - bgnorm);
 
 %Manual thresholding
-% figure;
-% dohist(diff, 1);
-diffmasked = (diff > 0.015);
+diffmasked = (diff > 0.014);
 segmented = (diffmasked(:,:,1) | diffmasked(:,:,2) | diffmasked(:,:,3));
 
 % Automatic thresholding using findthresh
