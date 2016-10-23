@@ -4,10 +4,9 @@
 % 2. Background subtraction
 % 3. Manual thresholding
 
-function segmented = processing(image)
+function segmented = processing(image, background)
 
 %normalize background and image
-background = isolate_bkgd;
 inorm = normalize_rgb(image);
 bgnorm = normalize_rgb(background);
 

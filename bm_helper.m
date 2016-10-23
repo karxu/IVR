@@ -1,30 +1,41 @@
 %Script for processing images and feeding buildmodel.m
 
-% v = vector of training images (rgb)
-v = zeros(480, 640, 3, 5);
-
-v(:,:,:,1) = imread('02.jpg');
-v(:,:,:,2) = imread('04.jpg');
-v(:,:,:,3) = imread('06.jpg');
-v(:,:,:,4) = imread('08.jpg');
-v(:,:,:,5) = imread('10.jpg');
-
-% w = vector of processed training images (bw)
-% w = zeros(480, 640, 5);
-% 
-% for i = 1:5
-%     w[i] = processing(v(:,:,:,i));
-% 
-% end
-    
-% for each bw image in w, we create a list of blobs x
-    % for each blob in x, we calculate a feature vector and append that
-    % feature vector to vecs
-
 % vecs = list of feature vectors where vecs[i] is a feature vector
 
 % classes = list of true class values 
 
+im2blobs = vec2(:,:,1:16);
+im4blobs = vec4(:,:,1:16);
+im6blobs = vec6(:,:,1:16);
+im8blobs = vec8(:,:,1:16);
+im10blobs = vec10(:,:,1:16);
+
+im2vecs = zeros(16,8);
+im4vecs = zeros(16,8);
+im6vecs = zeros(16,8);
+im8vecs = zeros(16,8);
+im10vecs = zeros(16,8);
+
+for i = 1:16
+    im2vecs(i,:) = getfeatures(im2blobs(:,:,i), og2);
+    im4vecs(i,:) = getfeatures(im4blobs(:,:,i), og4);
+    im6vecs(i,:) = getfeatures(im6blobs(:,:,i), og6);
+    im8vecs(i,:) = getfeatures(im8blobs(:,:,i), og8);
+    im10vecs(i,:) = getfeatures(im10blobs(:,:,i), og10);
+end
+
+vecs = zeros(80, 8);
+
+vecs(1:16,:) = im2vecs(1:16,:);
+vecs(17:32,:) = im4vecs(1:16,:);
+vecs(33:48,:) = im6vecs(1:16,:);
+vecs(49:64,:) = im8vecs(1:16,:);
+vecs(65:80,:) = im10vecs(1:16,:);
+
+Dim = 8;
+Numclass = 10;
+
+%buildmodel(Dim,vecs,N,Numclass,Classes)
 
 % Numclass is number of classes, 10 objects 
 % N is num of rows in Vecs, number of total blobs from even images (~60)

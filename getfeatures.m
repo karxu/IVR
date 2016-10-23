@@ -1,3 +1,6 @@
+%This function takes in a binary image of an object and the original rgb
+%image to return a vector of features.
+
 function featurevec = getfeatures(blob, original)
 
 featurevec = zeros(1,8);

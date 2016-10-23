@@ -1,5 +1,4 @@
 % given IVR code
-
 % selects the largest of the connected image regions in the binary image
 function largest = getlargest(input,show)
 

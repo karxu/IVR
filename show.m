@@ -6,5 +6,6 @@ for i = 1:20
     imshow(vector(:,:,i));
 end
 figure;
+im_vec = zeros(1,1);
 imshowpair(og,binary,'montage');
 end
