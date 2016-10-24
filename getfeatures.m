@@ -3,16 +3,15 @@
 
 function featurevec = getfeatures(blob, original)
 
-featurevec = zeros(1,8);
-
-size = sum(sum(blob));
-colorvec = colormask(original, blob);
-convexity = convex(blob);
+%size = sum(sum(blob));
+%colorvec = colormask(original, blob);
+%convexity = convex(blob);
 moments = getproperties(blob);
 
-featurevec(1) = size;
-featurevec(2) = convexity;
-featurevec(3:5) = moments;
-featurevec(6:8) = colorvec;
+%featurevec(1) = size;
+%featurevec(1) = convexity;
+%featurevec(3:5) = moments;
+%featurevec(2:4) = colorvec;
+featurevec = moments(1);
 
 end
