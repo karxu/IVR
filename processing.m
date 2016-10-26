@@ -7,27 +7,16 @@
 function segmented = processing(image, background)
 
 %normalize background and image
-inorm = normalize_rgb(image);
-bgnorm = normalize_rgb(background);
+inorm = image; %normalize_rgb(image);
+bgnorm = background; %normalize_rgb(background);
 
 diff = abs(inorm - bgnorm);
 
 %Manual thresholding
-diffmasked = (diff > 0.014);
+diffmasked = (diff > 1.5);
 segmented = (diffmasked(:,:,1) | diffmasked(:,:,2) | diffmasked(:,:,3));
-
-% Automatic thresholding using findthresh
-% diffbw = 255*rgb2gray(diff);
-% segmented = getbinary(diffbw);
-
-%Adaptive thresholding
-%inorm = inorm * 255;
-%inorm = uint8(inorm);
-%inorm = rgb2gray(inorm);
-%segmentd = adapt(inorm);
 
 segmented = bwmorph(segmented, 'clean');
 
 figure;
-imshowpair(image, segmented, 'montage');
 end
