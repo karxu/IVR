@@ -1,4 +1,4 @@
-%Given an rgb image and a binary blob of 1 object, this function returns
+%Given an rgb image and a binary image containing 1 connected component, this function returns
 %the number of red, blue, and green pixels in the object
 
 function colorvec = colormask(image, mask)

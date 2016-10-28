@@ -1,4 +1,6 @@
-%helper function for showing blobs that were detected
+%Given an rgb image, a binary image, and a vector showing individual
+%objects in the image, this function displays all of the objects
+
 function im_vec = show(og,binary,vector)
 
 for i = 1:20

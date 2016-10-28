@@ -7,16 +7,22 @@
 function segmented = processing(image, background)
 
 %normalize background and image
-inorm = image; %normalize_rgb(image);
-bgnorm = background; %normalize_rgb(background);
+inorm = normalize_rgb(image);
+bgnorm = normalize_rgb(background);
 
+imshowpair(image, inorm, 'montage');
+figure;
+imshowpair(background, bgnorm, 'montage');
+
+%Subtract background
 diff = abs(inorm - bgnorm);
 
-%Manual thresholding
-diffmasked = (diff > 1.5);
+%Manual thresholding of background subtracted image
+diffmasked = (diff > .014);
 segmented = (diffmasked(:,:,1) | diffmasked(:,:,2) | diffmasked(:,:,3));
 
+%Cleaning to eliminate some noise
 segmented = bwmorph(segmented, 'clean');
+imshowpair(image, segmented, 'montage');
 
-figure;
 end

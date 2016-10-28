@@ -1,16 +1,18 @@
 %Script for processing images and feeding buildmodel.m
 
-% Need more instances per class than number of features being used
 % Rotate objects by 90 degrees to get more training images
 
+%%
 Dim = 1;
 
+%Create vectors of individual object images
 im2blobs = vec2(:,:,1:16);
 im4blobs = vec4(:,:,1:16);
 im6blobs = vec6(:,:,1:16);
 im8blobs = vec8(:,:,1:16);
 im10blobs = vec10(:,:,1:16);
 
+%Rotate objects to increase size of training set
 im2blobs90 = zeros(640, 480, 16);
 im4blobs90 =zeros(640, 480, 16);
 im6blobs90 = zeros(640, 480, 16);
@@ -49,6 +51,8 @@ for i = 1:16
     im10blobs270(:,:,i) = imrotate(im10blobs(:,:,i),-90);
 end
 
+
+%%
 im2vecs = zeros(16,Dim);
 im4vecs = zeros(16,Dim);
 im6vecs = zeros(16,Dim);
@@ -73,6 +77,8 @@ im6vecs270 = zeros(16,Dim);
 im8vecs270 = zeros(16,Dim);
 im10vecs270 = zeros(16,Dim);
 
+%%
+%calculate feature vectors for every image
 for i = 1:16
     im2vecs(i,:) = getfeatures(im2blobs(:,:,i), og2);
     im4vecs(i,:) = getfeatures(im4blobs(:,:,i), og4);
@@ -125,6 +131,8 @@ vecs(273:288,:) = im6vecs270(1:16,:);
 vecs(289:304,:) = im8vecs270(1:16,:);
 vecs(305:320,:) = im10vecs270(1:16,:);
 
+%%
+%True classes - hand classified
 classes2 = [1, 1, 8, 2, 9, 9, 9, 10, 10, 6, 7, 4, 11, 11, 11, 11]; 
 classes4= [3, 5, 8, 2, 2, 9, 10, 10, 6, 6, 4, 4, 11, 6, 11, 11];
 classes6 = [1, 1, 3, 8, 8, 9, 2, 2, 10, 6, 6, 4, 11, 11, 11, 4];
@@ -138,13 +146,14 @@ classes(17:32) = classes4;
 classes(33:48) = classes6;
 classes(49:64) = classes8;
 classes(65:80) = classes10;
-
 classes(81:160) = classes(1:80);
 classes(161:320) = classes(1:160);
 
 Numclass = 11;
 N = 320;
 
+%%
+%Generate Model objects using buildmodel()
 [Means,Invcors,Aprioris] = buildmodel(Dim, vecs, N, Numclass, classes);
 
 %1 = battery
@@ -158,3 +167,4 @@ N = 320;
 %9 = washer with large hole
 %10 = nut
 %11 = noise
+
